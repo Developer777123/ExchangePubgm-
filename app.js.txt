@@ -1,0 +1,70 @@
+// Firebase setup (you need to add your firebase configuration)
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+// Firebase config (use your Firebase credentials)
+const firebaseConfig = {
+    apiKey: "AIzaSyBGiaONs8yNxAYbG5cdIiHRtJ8nY9lmCDs",
+    authDomain: "exchangepubgm-9d5db.firebaseapp.com",
+    projectId: "exchangepubgm-9d5db",
+    storageBucket: "exchangepubgm-9d5db.appspot.com",
+    messagingSenderId: "157788525825",
+    appId: "1:157788525825:web:c82fb23b1b7416aa887700",
+    measurementId: "G-DECVWHLSWY"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Event Listeners for Buttons
+document.getElementById("register-btn").addEventListener("click", () => {
+    document.getElementById("registration-form").classList.remove("hidden");
+    document.getElementById("login-form").classList.add("hidden");
+});
+
+document.getElementById("login-btn").addEventListener("click", () => {
+    document.getElementById("login-form").classList.remove("hidden");
+    document.getElementById("registration-form").classList.add("hidden");
+});
+
+// Handle Registration
+document.getElementById("reg-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("reg-email").value;
+    const password = document.getElementById("reg-password").value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            alert("Registration successful! Welcome, " + user.email);
+            // Redirect or show user dashboard
+            window.location.href = "dashboard.html"; // Create dashboard.html page
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert("Error: " + errorMessage);
+        });
+});
+
+// Handle Login
+document.getElementById("login-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            alert("Login successful! Welcome back, " + user.email);
+            window.location.href = "dashboard.html"; // Redirect to user dashboard
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert("Error: " + errorMessage);
+        });
+});

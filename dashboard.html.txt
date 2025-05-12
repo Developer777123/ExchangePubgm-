@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Your Dashboard</h1>
+        <button id="logout-btn">Logout</button>
+    </header>
+
+    <section id="cases-section">
+        <h2>Open Cases</h2>
+        <div class="case">
+            <p>Starter Case - $2.49</p>
+            <button>Open Case</button>
+        </div>
+        <div class="case">
+            <p>Pro Case - $5.99</p>
+            <button>Open Case</button>
+        </div>
+        <div class="case">
+            <p>Legendary Case - $12.99</p>
+            <button>Open Case</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 ExchangePubgM</p>
+    </footer>
+
+    <script>
+        document.getElementById("logout-btn").addEventListener("click", () => {
+            firebase.auth().signOut().then(() => {
+                window.location.href = "index.html"; // Redirect to home page
+            }).catch((error) => {
+                alert("Error signing out: " + error.message);
+            });
+        });
+    </script>
+</body>
+</html>

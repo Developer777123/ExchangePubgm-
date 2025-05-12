@@ -1,0 +1,2 @@
+// Firebase configuration and setup
+// This file contains your Firebase config, as shown above
